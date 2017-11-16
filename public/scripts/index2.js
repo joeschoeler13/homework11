@@ -21,6 +21,7 @@ function addanimal() {
         valueLegs: document.getElementById('animallegs').value
     };
     item++;
+    alert("Your animal was added to the database.")
 
     console.log("Added animal: " + document.getElementById('animalname').value);
     console.log("Number of Legs of added Animal: " + document.getElementById('animallegs').value);
