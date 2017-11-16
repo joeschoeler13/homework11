@@ -468,7 +468,8 @@ app.post('/api/cars', function(request, response) {
 
         var id;
         var name = request.body.name;
-        var value = request.body.value;
+        var valueAnimal = request.body.valueAnimal;
+        var valueLegs = request.body.valueLegs;
 
         console.log(request.body.name);
 
@@ -479,7 +480,8 @@ app.post('/api/cars', function(request, response) {
     
         db2.insert({
             name: name,
-            value: value
+            valueAnimal: valueAnimal,
+            valueLegs: valueLegs,
                 }, id, function(err, doc) {
             if (err) {
                 console.log(err);
