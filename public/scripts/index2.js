@@ -21,6 +21,9 @@ function addanimal() {
         valueLegs: document.getElementById('animallegs').value
     };
     item++;
+
+    console.log("Added animal: " + document.getElementById('animalname').value);
+    console.log("Number of Legs of added Animal: " + document.getElementById('animallegs').value);
     xhrPost(REST_DATA, data, function(item) {
         
     }, function(err) {
