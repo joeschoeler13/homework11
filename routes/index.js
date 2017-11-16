@@ -10,3 +10,7 @@ exports.index = function(req, res){
 exports.index1 = function(req, res){
   res.render('index1.html', { title: 'index1' });
 };
+
+exports.index2 = function(req, res){
+  res.render('index2.html', { title: 'index1' });
+};
