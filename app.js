@@ -460,11 +460,12 @@ app.get('/api/favorites', function(request, response) {
 
 });
 
-//cars routes
+//animals routes
 
 app.post('/api/cars', function(request, response) {
+    //did not know how to change this route, so I left it as cars, since changing it to api/animals threw up many errors
     
-        console.log("add a car..");
+        console.log("Adding an animal...");
 
         var id;
         var name = request.body.name;
