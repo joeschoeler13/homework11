@@ -12,13 +12,20 @@ var express = require('express'),
 var app = express();
 
 var db;
+var db2;
 
+var Cloudant;
 var cloudant;
+var cloudant2;
 
 var fileToUpload;
 
 var dbCredentials = {
     dbName: 'my_sample_db'
+};
+
+var dbCredentials2 = {
+    dbName: 'animal_db'
 };
 
 var bodyParser = require('body-parser');
@@ -60,10 +67,14 @@ function getDBCredentialsUrl(jsonData) {
 }
 
 function initDBConnection() {
+
+    console.log("db:"+db);
+
     //When running on Bluemix, this variable will be set to a json object
     //containing all the service credentials of all the bound services
     if (process.env.VCAP_SERVICES) {
         dbCredentials.url = getDBCredentialsUrl(process.env.VCAP_SERVICES);
+        dbCredentials2.url = getDBCredentialsUrl(process.env.VCAP_SERVICES);
     } else { //When running locally, the VCAP_SERVICES will not be set
 
         // When running this app locally you can get your Cloudant credentials
@@ -74,9 +85,16 @@ function initDBConnection() {
         // Bluemix service.
         // url will be in this format: https://username:password@xxxxxxxxx-bluemix.cloudant.com
         dbCredentials.url = getDBCredentialsUrl(fs.readFileSync("vcap-local.json", "utf-8"));
+        dbCredentials2.url = getDBCredentialsUrl(fs.readFileSync("vcap-local.json", "utf-8"));
     }
 
-    cloudant = require('cloudant')(dbCredentials.url);
+    console.log("db:"+db);
+
+    Cloudant = require('cloudant');
+    cloudant = Cloudant(dbCredentials.url);
+    cloudant2 = Cloudant(dbCredentials2.url);
+  
+    console.log("db:"+db);
 
     // check if DB exists if not create
     cloudant.db.create(dbCredentials.dbName, function(err, res) {
@@ -86,6 +104,17 @@ function initDBConnection() {
     });
 
     db = cloudant.use(dbCredentials.dbName);
+
+    console.log("db:"+db);
+    console.log(db2);
+    
+    cloudant2.db.create(dbCredentials2.dbName, function(err, res) {
+        if (err) {
+            console.log('Could not create new db: ' + dbCredentials.dbName + ', it might already exist.');
+        }
+    });
+
+    db2 = cloudant2.use(dbCredentials2.dbName);
 }
 
 initDBConnection();
