@@ -460,6 +460,36 @@ app.get('/api/favorites', function(request, response) {
 
 });
 
+//cars routes
+
+app.post('/api/cars', function(request, response) {
+    
+        console.log("add a car..");
+
+        var id;
+        var name = request.body.name;
+        var value = request.body.value;
+
+        console.log(request.body.name);
+
+        if (id === undefined) {
+            // Generated random id
+            id = '';
+        }
+    
+        db2.insert({
+            name: name,
+            value: value
+                }, id, function(err, doc) {
+            if (err) {
+                console.log(err);
+                response.sendStatus(500);
+            } else
+                response.sendStatus(200);
+            response.end();
+        });
+    
+    });
 
 http.createServer(app).listen(app.get('port'), '0.0.0.0', function() {
     console.log('Express server listening on port ' + app.get('port'));

@@ -6,10 +6,23 @@ var defaultItems = [
 
 ];
 
+var item = 0;
+
 function encodeUriAndQuotes(untrustedStr) {
     return encodeURI(String(untrustedStr)).replace(/'/g, '%27').replace(')', '%29');
 }
 
 function addcar() {
     console.log("adding car");
+    //var data = document.getElementById('newcar').value;
+    var data = {
+        name: "car",
+        value: document.getElementById('newcar').value
+    };
+    item++;
+    xhrPost(REST_DATA, data, function(item) {
+        row.setAttribute('data-id', item);
+    }, function(err) {
+        console.error(err);
+    });
 }
